@@ -1,0 +1,22 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ScoreController : MonoBehaviour {
+
+	public ArmBase arm;
+	private Text textCount;
+	private int totalDogs;
+	public DogManager dogs;
+	// Use this for initialization
+	void Start () {
+		textCount = GetComponent<Text>();
+		totalDogs = dogs.transform.childCount;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		textCount.text = arm.score.ToString() + " / " + totalDogs.ToString();
+	}
+}

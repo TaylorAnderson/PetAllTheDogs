@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1e3eedc2ee252844db3c67d9381c3182
+timeCreated: 1489539109
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: KBCloudyDay
+  fontNames:
+  - KBCloudyDay
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
