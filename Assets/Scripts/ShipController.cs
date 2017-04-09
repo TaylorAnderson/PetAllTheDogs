@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class ShipController : MonoBehaviour {
+using UnityEngine.UI;
+using DG.Tweening;
+public class ShipController : Pettable {
 
-	public GameObject arm;
+	bool beganLoadingNextScene = false;
 	public SceneLoader loader;
+	public ScoreController score;
+	public GameObject leaveNoDogBehind;
+	private Text leaveNoDogsText;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,11 +20,20 @@ public class ShipController : MonoBehaviour {
 	void Update () {
 		
 	}
-	void OnMouseDown()
+	public override void OnPet()
 	{
-		if (Vector3.Distance(transform.position, arm.transform.position) < 50)
+		if (!beganLoadingNextScene && score.dogsPetted == score.totalDogs) 
 		{
+			StartCoroutine(loader.LoadNewScene(SceneManager.GetActiveScene().buildIndex + 1));
+			beganLoadingNextScene = true;
+		}
+		else
+		{
+			leaveNoDogsText = leaveNoDogBehind.GetComponent<Text>();
+			leaveNoDogBehind.SetActive(true);
+			leaveNoDogsText.CrossFadeAlpha(1.0f, 0.0f, true);
 			
+			leaveNoDogsText.CrossFadeAlpha(0, 0.5f, true);
 		}
 	}
 

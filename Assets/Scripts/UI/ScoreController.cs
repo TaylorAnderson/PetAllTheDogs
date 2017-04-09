@@ -7,7 +7,10 @@ public class ScoreController : MonoBehaviour {
 
 	public ArmBase arm;
 	private Text textCount;
-	private int totalDogs;
+	[HideInInspector]
+	public int totalDogs;
+	[HideInInspector]
+	public int dogsPetted;
 	public DogManager dogs;
 	// Use this for initialization
 	void Start () {
@@ -17,6 +20,7 @@ public class ScoreController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		dogsPetted = arm.score;
 		textCount.text = arm.score.ToString() + " / " + totalDogs.ToString();
 	}
 }
