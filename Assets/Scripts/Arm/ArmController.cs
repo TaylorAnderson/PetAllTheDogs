@@ -65,7 +65,6 @@ public class ArmController : ArmBase {
 	}
 	void OnTriggerEnter(Collider e)
 	{
-		print("enteredtrigger");
 		if (e.CompareTag("Car"))
 		{
 			redFlash.gameObject.SetActive(true);

@@ -20,10 +20,8 @@ public class VRDoor : MonoBehaviour {
 		}
 		if (allPetted)
 		{
-			print("moving");
 			TweenParams tParms = new TweenParams().SetEase(Ease.InExpo);
 			transform.DOMoveY(-5, 0.08f).SetAs(tParms);
 		}
-		print(transform.position.y);
 	}
 }

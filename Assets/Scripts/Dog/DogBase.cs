@@ -7,7 +7,6 @@ public class DogBase : Pettable
 {
 
 	protected float counter = 0f;
-	public float moveInterval = 100;
 	public float moveSpeed = 1;
 	protected Rigidbody rb;
 	protected Vector3 movement;
@@ -23,7 +22,6 @@ public class DogBase : Pettable
 	{
 		base.Start();
 		rb = GetComponent<Rigidbody>();
-		counter = moveInterval;
 		foreach (Transform child in transform)
 		{
 			if (child.gameObject.CompareTag("Tail")) tail = child.gameObject;

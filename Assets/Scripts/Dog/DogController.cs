@@ -7,10 +7,13 @@ public class DogController : DogBase {
 	// Update is called once per frame
 	public GameObject leftWing;
 	public GameObject rightWing;
+	Vector3 transformRotation = new Vector3();
+	public bool isDebug = false;
 	public void Start()
 	{
 		base.Start();
-		InvokeRepeating("Wander", 0.0f, moveInterval);
+		StartCoroutine("DoWander");
+
 	}
 	protected void FixedUpdate() {
 		if (transform.position.y < startY - 50)
@@ -28,27 +31,42 @@ public class DogController : DogBase {
 		}
 		if (transform.position.y > 50) Destroy(this);
 
-		if (moveSpeed > 0)
+		
+		if (rb.velocity.magnitude > 1)
 		{
-			print(movement);
-			rb.AddForce(movement);
-			transform.right = movement;
+			transformRotation.x = rb.velocity.x;
+			transformRotation.z = rb.velocity.z;
 		}
+		transformRotation.y = 0;
+
+		transform.right = transformRotation;
+		
+		
 		base.FixedUpdate();
+
+		
 	}
 	void Wander()
 	{
-		while (Physics.Raycast(transform.position, movement, 1.0f)) 
+		if (isDebug) print("running");
+		movement = Random.insideUnitSphere * Random.Range(80, 200);
+		if (!isAngel) movement.y = 0;
+		else movement.y += 5;
+		if (moveSpeed > 0)
 		{
-			movement = Random.insideUnitSphere * Random.Range(moveSpeed-5, moveSpeed + 5);
-			if (!isAngel) movement.y = 0;
-			else movement.y += 5;
+			rb.AddForce(movement);
 		}
+		
+	}
+	IEnumerator DoWander()
+	{
+		while(true)
+		{
 
-
-
-
-
+			Wander();
+			yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+		}
+		
 	}
 
 }
