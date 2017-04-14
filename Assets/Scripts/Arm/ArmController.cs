@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class ArmController : ArmBase {
 	public float rotationOffset = 0.0f;
@@ -11,9 +12,9 @@ public class ArmController : ArmBase {
 	Vector3 initPos;
 	Vector3 impact;
 
-	float mass = 3.0F; 
+	float mass = 3.0F;
 
-
+	public Image redFlash;
 	void Start () {
 		DOTween.Init();
 		player = transform.parent.parent.GetComponent<FPBase>();
@@ -61,5 +62,18 @@ public class ArmController : ArmBase {
 		dir.Normalize();
 		if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
 		impact += dir.normalized * force / mass;
+	}
+	void OnTriggerEnter(Collider e)
+	{
+		print("enteredtrigger");
+		if (e.CompareTag("Car"))
+		{
+			redFlash.gameObject.SetActive(true);
+			redFlash.CrossFadeAlpha(1.0f, 0.0f, true);
+			redFlash.CrossFadeAlpha(0.0f, 0.3f, true);
+			player.transform.position = initPos;
+			player.lockControls(0.5f);
+		}
+
 	}
 }

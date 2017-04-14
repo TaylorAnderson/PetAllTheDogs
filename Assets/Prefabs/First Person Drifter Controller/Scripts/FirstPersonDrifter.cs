@@ -53,6 +53,7 @@ public class FirstPersonDrifter: FPBase
  
     void Start()
     {
+
         controller = GetComponent<CharacterController>();
         myTransform = transform;
         speed = walkSpeed;
@@ -64,6 +65,11 @@ public class FirstPersonDrifter: FPBase
     void FixedUpdate() {
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
+
+	   if (controlLockTime > 0.0f)
+	   {
+			inputX = inputY = 0;
+	   }
         // If both horizontal and vertical are used simultaneously, limit speed (if allowed), so the total doesn't exceed normal move speed
         float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed)? .7071f : 1.0f;
  
@@ -114,7 +120,7 @@ public class FirstPersonDrifter: FPBase
             // Jump! But only if the jump button has been released and player has been grounded for a given number of frames
             if (!Input.GetButton("Jump"))
                 jumpTimer++;
-            else if (jumpTimer >= antiBunnyHopFactor) {
+            else if (jumpTimer >= antiBunnyHopFactor && controlLockTime < 0.0f) {
                 moveDirection.y = jumpSpeed;
                 jumpTimer = 0;
             }

@@ -13,14 +13,14 @@ public class ShipController : Pettable {
 	private Text leaveNoDogsText;
 	// Use this for initialization
 	void Start () {
-		
+		maxDistance = 15.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-	public override void OnPet()
+	public override void OnPet(ArmBase arm)
 	{
 		if (!beganLoadingNextScene && score.dogsPetted == score.totalDogs) 
 		{

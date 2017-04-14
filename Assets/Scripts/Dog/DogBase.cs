@@ -16,15 +16,12 @@ public class DogBase : Pettable
 
 	protected bool waggingTail = false;
 	[HideInInspector]
-	public GameObject hearts; //to be delivered by manager
-	[HideInInspector]
-	public GameObject arm; //to be delivered by manager
 	protected Canvas testCanvas;
 	protected bool isAngel = false;
 	protected float startY;
-	protected float distance = 10;
 	protected void Start()
 	{
+		base.Start();
 		rb = GetComponent<Rigidbody>();
 		counter = moveInterval;
 		foreach (Transform child in transform)
@@ -40,15 +37,14 @@ public class DogBase : Pettable
 		
 	}
 
-	override public void OnPet()
+	override public void OnPet(ArmBase arm)
 	{
-		if (Vector3.Distance(transform.position, arm.transform.position) < distance && !waggingTail)
+		if (!petted)
 		{
-			waggingTail = true;
+			base.OnPet(arm);
 			WagLeft();
 			ArmBase controller = arm.GetComponent<ArmBase>();
 			controller.score++;
-			Instantiate(hearts, transform.position, Quaternion.identity);
 		}
 	}
 	void WagLeft()

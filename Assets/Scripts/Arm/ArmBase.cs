@@ -18,21 +18,21 @@ public class ArmBase : MonoBehaviour {
 		{
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			Debug.DrawRay(ray.origin, ray.direction);
 			if (Physics.Raycast(ray, out hit))
 			{
 				GameObject go = hit.collider.gameObject;
 				if (go.GetComponentInParent<Pettable>() != null)
 				{
 					Pettable pettable = go.GetComponentInParent<Pettable>();
-					pettable.OnPet();
+
+					if (Vector3.Distance(transform.position, pettable.transform.position) < pettable.maxDistance)
+					{
+						pettable.OnPet(this);
+					} 
 				}
 			}
 		}
 	}
-	void OnTriggerEnter(Collider e)
-	{
 
-	}
 
 }

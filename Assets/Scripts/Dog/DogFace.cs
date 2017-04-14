@@ -8,14 +8,13 @@ public class DogFace : DogBase {
 
 	void Start() {
 		base.Start();
-		distance = 1000000000;
+		maxDistance = 1000000000;
 	}
 	void Update()
 	{
 		if (hearts && !scaledHearts)
 		{
 			scaledHearts = true;
-			
 		}
 	}
 }

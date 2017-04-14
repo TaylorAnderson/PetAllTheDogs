@@ -11,11 +11,11 @@ public class ScoreController : MonoBehaviour {
 	public int totalDogs;
 	[HideInInspector]
 	public int dogsPetted;
-	public DogManager dogs;
+	public Transform dogs;
 	// Use this for initialization
 	void Start () {
 		textCount = GetComponent<Text>();
-		totalDogs = dogs.transform.childCount;
+		totalDogs = dogs.childCount;
 	}
 	
 	// Update is called once per frame
