@@ -39,7 +39,7 @@ public class DogController : DogBase {
 		}
 		transformRotation.y = 0;
 
-		transform.right = transformRotation;
+		if (moveSpeed > 0) transform.right = transformRotation;
 		
 		
 		base.FixedUpdate();
@@ -48,7 +48,6 @@ public class DogController : DogBase {
 	}
 	void Wander()
 	{
-		if (isDebug) print("running");
 		movement = Random.insideUnitSphere * Random.Range(80, 200);
 		if (!isAngel) movement.y = 0;
 		else movement.y += 5;
