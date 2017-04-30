@@ -22,7 +22,13 @@ public class ArmController : ArmBase {
 
 		playerChar = player.GetComponent<CharacterController>();
 	 }
-	 // Update is called once per frame
+	// Update is called once per frame
+
+	public delegate void OnPet();
+	public delegate void OnEnteredDogTrigger();
+	public static OnEnteredDogTrigger onEnteredDogTrigger;
+	public static OnPet onPet;
+	bool enteredDogTrigger = false;
 	 void FixedUpdate ()
 	 {
 		// apply the impact force:
@@ -33,13 +39,16 @@ public class ArmController : ArmBase {
 		{
 			player.transform.position = initPos;
 		}
-		if (Input.GetMouseButtonDown(0))
+
+		if (Input.GetButton("Pet"))
 		{
 			transform.Rotate(new Vector3(-rotationOffset, 0, 0));
 			transform.Rotate(new Vector3(15, 0, 0));
 			rotationOffset = 15;
+			if (onPet != null) onPet();
+		
 		}
-		if (Input.GetMouseButton(1))
+		if (Input.GetButton("Run"))
 		{
 			stamina -= Time.deltaTime;
 		}
@@ -72,6 +81,14 @@ public class ArmController : ArmBase {
 			redFlash.CrossFadeAlpha(0.0f, 0.3f, true);
 			player.transform.position = initPos;
 			player.lockControls(0.5f);
+		}
+		if (e.CompareTag("DogView"))
+		{
+			if (onEnteredDogTrigger != null && !enteredDogTrigger)
+			{
+				onEnteredDogTrigger();
+				enteredDogTrigger = true;
+			}
 		}
 
 	}

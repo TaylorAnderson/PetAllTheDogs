@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TromboneController : MonoBehaviour {
+public class TromboneController : MonoBehaviour
+{
 
-	public StartTextController startText;
 	private AudioSource sound;
 	private bool soundPlayed = false;
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		sound = GetComponent<AudioSource>();
+		StartText.onCountDownEnd += PlaySoundOnce;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (startText.finished && !soundPlayed)
+
+	void PlaySoundOnce()
+	{
+		if (!soundPlayed)
 		{
 			sound.Play();
 			soundPlayed = true;
